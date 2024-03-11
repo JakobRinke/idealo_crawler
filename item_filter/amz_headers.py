@@ -36,3 +36,6 @@ import random
 
 def get_header():
     return {"User-Agent":random.choice(useragents),"accept-language": "en-US,en;q=0.9","accept-encoding": "gzip, deflate, br","accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"}
+
+def get_random_user_agent():
+    return random.choice(useragents)

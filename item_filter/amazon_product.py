@@ -25,9 +25,9 @@ class AmazonProduct:
     def get_amazon_soup(self):
         return amazon_funcs.get_amazon_json(self.ean)
     
-    def get_cost(self, idealo_price):
+    def get_cost(self, idealo_price, p=None):
         if self.fba_costs == -1:
-            self.fba_costs = amazon_fba_calculator.get_shipping_fees(self, idealo_price)
+            self.fba_costs = amazon_fba_calculator.get_shipping_fees(self, idealo_price, p)
         return self.fba_costs
     
     def get_cat_gl(self):
@@ -40,12 +40,9 @@ class AmazonProduct:
             self.soup = amazon_funcs.get_amazon_json(self.ean)
         return amazon_funcs.get_rating(self.soup)
     
-    def get_avgr30(self, amz_price):
+    def get_avgr30(self, curprice):
         if self.avgr30 == -1:
-            try:
-                self.avgr30 =  keepa_price_chart_analyzer.get_30_day_avg(self.ean, amz_price)
-            except:
-                self.avgr30 = -1
+            self.avgr30 = keepa_price_chart_analyzer.get_30_day_avg(self.ean, curprice)
         return self.avgr30
     
 

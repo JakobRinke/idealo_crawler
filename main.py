@@ -23,7 +23,7 @@ def to_csv(item:IdealoShopItem, file="output.csv"):
         name = item.name
         buy_price = item.best_offer.price
         cur_amazon_price = item.amazon_offer.price
-        avgr30 = item.get_amazon_item().get_avgr30(item.amazon_offer.price)
+        avgr30 = item.get_amazon_item().get_avgr30(item.driver)
         bsr = item.get_amazon_item().get_bsr()
         rating_count = item.get_amazon_item().get_rating_count()
         amazon_link = item.amazon_offer.redirectLink
@@ -37,7 +37,7 @@ def add_to_writer(item:IdealoShopItem):
     name = item.name
     buy_price = item.best_offer.price
     cur_amazon_price = item.amazon_offer.price
-    avgr30 = item.get_amazon_item().get_avgr30(item.amazon_offer.price)
+    avgr30 = item.get_amazon_item().get_avgr30(item.driver)
     bsr = item.get_amazon_item().get_bsr()
     rating_count = item.get_amazon_item().get_rating_count()
     amazon_link = item.amazon_offer.redirectLink

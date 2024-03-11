@@ -7,8 +7,11 @@ defaul_filter_funcs = [
     check_price_ratio, 
     check_min_price,
     check_max_price,
+    check_blacklist,
+    check_word_blacklist,
     get_min_rating_val,
     check_selling_amount,
+    check_profitablity_2,
     check_profitablity
 ]
 

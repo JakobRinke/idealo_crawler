@@ -1,3 +1,4 @@
+import time
 from bs4 import BeautifulSoup
 import requests
 from fake_useragent import UserAgent
@@ -40,7 +41,11 @@ class IdealoShopItem:
         self.name = name
         self.idealo_listing = "https://www.idealo.de/preisvergleich/OffersOfProduct/" + id + ".html"
         for i in range(0, 15 * 2, 15):
-            driver.get(ITEM_FIND_URL.format(id, i))
+            try:
+                driver.get(ITEM_FIND_URL.format(id, i))
+            except:
+                time.sleep(5)
+                driver.get(ITEM_FIND_URL.format(id, i))
             self.amazon_offer:IdealoItemOffer = None
             self.best_offer:IdealoItemOffer = None
             for item in driver.find_elements(By.CSS_SELECTOR, ".productOffers-listItem"):

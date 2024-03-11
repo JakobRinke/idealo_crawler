@@ -1,6 +1,7 @@
 # selenium 4.0
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
+from undetected_chromedriver import ChromeOptions
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from idealo.idealo_item import IdealoItemHead
@@ -32,6 +33,7 @@ class IdealoCategoryCrawler ():
         options.add_argument("--disable-low-res-tiling")
         options.add_argument("--log-level=3")
         options.add_argument("--silent")
+    
         #chrome_options.add_argument("--headless")
         self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
    
@@ -101,9 +103,9 @@ def single_threaded_category_search(category:str, onItem):
     try:
         crawler = IdealoCategoryCrawler(categoryID=category)
     except Exception as e:
-        print(e)
+        #print(e)
         # print stack trace
-        traceback.print_exc()
+        # traceback.print_exc()
 
         return items
     for item in crawler:
