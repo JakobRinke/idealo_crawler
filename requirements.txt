@@ -1,0 +1,12 @@
+beautifulsoup4==4.12.3
+fake_useragent==1.4.0
+numpy==1.25.2
+pandas==2.0.3
+Pillow==10.0.1
+Pillow==10.3.0
+pygsheets==2.0.6
+pytesseract==0.3.10
+Requests==2.31.0
+selenium==4.20.0
+undetected_chromedriver==3.5.4
+webdriver_manager==4.0.1
