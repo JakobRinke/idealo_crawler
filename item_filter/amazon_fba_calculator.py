@@ -4,11 +4,28 @@ try:
 except:
     from amz_headers import get_header
 import time
+from selenium.webdriver.common.by import By
+import time
+import json
 
 AMAZON_FEE_URL = "https://sellercentral.amazon.de/rcpublic/getfees?countryCode=DE&locale=de-DE"
 AMAZON_PRICE_URL = "https://sellercentral.amazon.de/rcpublic/getadditionalpronductinfo?countryCode=DE&asin={}&fnsku=&searchType=GENERAL&locale=de-DE"
 
+def post(driver, url, data):
+        return driver.execute_script(f"""
+            return fetch("{url}", {{
+                method: "POST",
+                body: '{json.dumps(data)}',
+                headers: {{
+                    "Content-Type": "application/json;charset=UTF-8"
+                }}
+            }})
+            .then(response => response.text());
+        """)
+
+    
 def get_post_data(item, p=None):
+
     item_id = item.ean
     if p is not None:
         price = p
@@ -35,16 +52,17 @@ def get_post_data(item, p=None):
     }
 
 
-def get_amazon_fees_json(item, p):
-    resp = requests.post(AMAZON_FEE_URL, json=get_post_data( item, p), headers=get_header())
-    return resp.json()
+def get_amazon_fees_json(item, p, driver):
 
-def get_shipping_fees(item, idealo_price, p):
+    return post(driver, AMAZON_FEE_URL, get_post_data( item, p))
+
+def get_shipping_fees(item, idealo_price, p, driver):
     try:
-        fees = get_amazon_fees_json( item, p)
+        fees = json.loads(get_amazon_fees_json( item, p, driver), strict=False)
     except Exception as e:
         return 1000000
     brutto_price = idealo_price / 1.19
+    
     amazonPrgrm = fees['data']['programFeeResultMap']["Core"]
     costs = brutto_price
     costs += amazonPrgrm["otherCost"]["vatAmount"]["amount"]

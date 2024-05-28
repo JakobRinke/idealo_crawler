@@ -1,3 +1,0 @@
-- Enthält Produktdaten
-
-

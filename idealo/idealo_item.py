@@ -78,7 +78,7 @@ class IdealoShopItem:
         if not "amazon.de" in self.amazon_offer.redirectLink:
             self.driver.get(self.amazon_offer.redirectLink)
             self.amazon_offer.redirectLink = self.driver.current_url
-        self.amazon_product = AmazonProduct(self.amazon_offer.redirectLink, self.amazon_offer.price)
+        self.amazon_product = AmazonProduct(self.amazon_offer.redirectLink, self.amazon_offer.price, self.driver)
         return self.amazon_product
 
 

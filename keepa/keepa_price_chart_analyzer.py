@@ -17,8 +17,11 @@ RANGE_IMG_URL = "https://graph.keepa.com/pricehistory.png?asin={}&domain=de&amaz
 
 def get_keepa_img(asin:str):
     r = requests.get(IMG_URL.format(asin), headers=amz_headers.get_header())
-    img_arr = np.array(Image.open(BytesIO(r.content)))
-    return img_arr[:, :, 1]
+    try:
+        img_arr = np.array(Image.open(BytesIO(r.content)))
+        return img_arr[:, :, 1]
+    except:
+        return False
 
 def to_int(s):
     # filter out non-numeric characters
@@ -48,6 +51,8 @@ def get_bottom_index(asin:str):
 
 def get_30_day_history(asin:str, current_price:float):
     img = get_keepa_img(asin)
+    if img == False:
+        return 10000000000
     history = []
     for i in range(30):
             for j in range(RELATIVE_HEIGHT):

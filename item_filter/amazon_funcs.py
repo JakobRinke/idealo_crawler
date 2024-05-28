@@ -3,9 +3,10 @@ try:
     from item_filter.amz_headers import get_header
 except:
     from amz_headers import get_header
+import json
+from selenium.webdriver.common.by import By
 
-
-DIRCET_URL = "https://sellercentral.amazon.de/rcpublic/productmatch?searchKey={}&countryCode=DE&locale=de-DE"
+DIRCET_URL = "http://sellercentral.amazon.de/rcpublic/productmatch?searchKey={}&countryCode=DE&locale=de-DE"
 
 def get_ean(url):
     return url.replace('https://www.amazon.de/dp/','').split('/')[0].split('?')[0]
@@ -28,14 +29,20 @@ def get_rating(soup):
     except:
         return -1
 
-def get_amazon_json(id):
+def get_amazon_json(id, driver):
     url = DIRCET_URL.format(id)
-    resp = requests.get(url, headers=get_header())
-    open("test.html", "w").write(resp.text)
-    json = resp.json()
-    if (json['succeed'] == False):
+    driver.get(url)
+ 
+    try:
+        content = driver.page_source
+        js = json.loads(content, strict=False)
+    except:
+        content = driver.find_element(By.TAG_NAME, "pre").text
+        js = json.loads(content, strict=False)
+
+    if (js['succeed'] == False):
         return "{}"
-    return json["data"]["otherProducts"]["products"][0]
+    return js["data"]["otherProducts"]["products"][0]
 
 def get_cat(soup):
     return soup['gl']

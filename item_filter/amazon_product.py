@@ -4,7 +4,8 @@ import keepa.keepa_price_chart_analyzer as keepa_price_chart_analyzer
 
 class AmazonProduct:
 
-    def __init__(self, url, price=0):
+    def __init__(self, url, price=0, driver=None):
+        self.driver = driver
         self.ean = amazon_funcs.get_ean(url).strip()
         self.price = price 
         self.soup = -1
@@ -14,12 +15,12 @@ class AmazonProduct:
 
     def get_bsr(self):
         if self.soup == -1:
-            self.soup = amazon_funcs.get_amazon_json(self.ean)
+            self.soup = amazon_funcs.get_amazon_json(self.ean, self.driver)
         return amazon_funcs.get_bsr(self.soup)
     
     def get_rating_count(self):
         if self.soup == -1:
-            self.soup = amazon_funcs.get_amazon_json(self.ean)
+            self.soup = amazon_funcs.get_amazon_json(self.ean, self.driver)
         return amazon_funcs.get_rating_count(self.soup)
     
     def get_amazon_soup(self):
@@ -27,17 +28,17 @@ class AmazonProduct:
     
     def get_cost(self, idealo_price, p=None):
         if self.fba_costs == -1:
-            self.fba_costs = amazon_fba_calculator.get_shipping_fees(self, idealo_price, p)
+            self.fba_costs = amazon_fba_calculator.get_shipping_fees(self, idealo_price, p, self.driver)
         return self.fba_costs
     
     def get_cat_gl(self):
         if self.soup == -1:
-            self.soup = amazon_funcs.get_amazon_json(self.ean)
+            self.soup = amazon_funcs.get_amazon_json(self.ean, self.driver)
         return amazon_funcs.get_cat(self.soup)
     
     def get_rating(self):
         if self.soup == -1:
-            self.soup = amazon_funcs.get_amazon_json(self.ean)
+            self.soup = amazon_funcs.get_amazon_json(self.ean, self.driver)
         return amazon_funcs.get_rating(self.soup)
     
     def get_avgr30(self, curprice):
