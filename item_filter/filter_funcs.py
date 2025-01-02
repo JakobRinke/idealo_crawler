@@ -55,8 +55,8 @@ def get_marge(item: IdealoShopItem):
     amz = item.get_amazon_item()
     if amz is None:
         return -1
-    avgr30 = amz.get_avgr30(item.amazon_offer.price)
-    print(amz.ean, ": ", avgr30)
+    #avgr30 = amz.get_avgr30(item.amazon_offer.price)
+    avgr30 = amz.price
     if avgr30 is None:
         return -5
     #avgr30 = item.amazon_offer.price
@@ -83,6 +83,8 @@ def check_selling_amount(item: IdealoShopItem):
 MIN_RATING = 4
 def get_min_rating_val(item: IdealoShopItem):
     amazon_product = item.get_amazon_item()
+    if amazon_product is None:
+        return False
     return amazon_product.get_rating() >= MIN_RATING
 
 MAX_DOW_DIFF = 1.3
