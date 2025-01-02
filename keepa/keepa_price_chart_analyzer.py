@@ -21,7 +21,7 @@ def get_keepa_img(asin:str):
         img_arr = np.array(Image.open(BytesIO(r.content)))
         return img_arr[:, :, 1]
     except:
-        return False
+        return []
 
 def to_int(s):
     # filter out non-numeric characters
@@ -51,8 +51,8 @@ def get_bottom_index(asin:str):
 
 def get_30_day_history(asin:str, current_price:float):
     img = get_keepa_img(asin)
-    if img == False:
-        return 10000000000
+    if len(img) == 0:
+        return None
     history = []
     for i in range(30):
             for j in range(RELATIVE_HEIGHT):
@@ -75,23 +75,12 @@ def get_30_day_history(asin:str, current_price:float):
 
 def get_30_day_avg(asin:str, current_price:float):
     history = get_30_day_history(asin, current_price)
+    if history is None:
+        return None
     return np.mean(history)
 
 
 
 if __name__ == "__main__":
-
-
-
-    print(get_bottom_index("B0BMQ3JVSB"))
-    #print(get_30_day_history("B0BMQ3JVSB", 219.99))
-
-    print(get_30_day_avg("B0BMQ3JVSB", 219.99))
-    print(get_30_day_history("B0041TRXA6", 219.99))
-    
-   # print(get_30_day_history("B00NGIL6W4", 676.60))
-    
-   # print(get_30_day_avg("1802537058",  2.89))
-
-
-   # print(get_30_day_avg("B0B11V46FF", 14.86))
+    print(get_30_day_avg("B0CNY4NSM2", 128.83))
+    print(get_30_day_avg("B07DPB7SKF", 54.95))

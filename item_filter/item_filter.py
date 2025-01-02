@@ -12,7 +12,7 @@ defaul_filter_funcs = [
     get_min_rating_val,
     check_selling_amount,
     check_profitablity_2,
-    check_profitablity
+    #check_profitablity
 ]
 
 def get_filter_val(item: IdealoShopItem, filter_funcs:list=defaul_filter_funcs):

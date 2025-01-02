@@ -76,8 +76,11 @@ class IdealoShopItem:
         if self.amazon_offer is None:
             return None
         if not "amazon.de" in self.amazon_offer.redirectLink:
-            self.driver.get(self.amazon_offer.redirectLink)
-            self.amazon_offer.redirectLink = self.driver.current_url
+            try:
+                self.driver.get(self.amazon_offer.redirectLink)
+                self.amazon_offer.redirectLink = self.driver.current_url
+            except:
+                return None
         self.amazon_product = AmazonProduct(self.amazon_offer.redirectLink, self.amazon_offer.price, self.driver)
         return self.amazon_product
 

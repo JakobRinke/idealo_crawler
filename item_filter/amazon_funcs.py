@@ -37,8 +37,11 @@ def get_amazon_json(id, driver):
         content = driver.page_source
         js = json.loads(content, strict=False)
     except:
-        content = driver.find_element(By.TAG_NAME, "pre").text
-        js = json.loads(content, strict=False)
+        try:
+            content = driver.find_element(By.TAG_NAME, "pre").text
+            js = json.loads(content, strict=False)
+        except:
+            js = {"succeed": False}
 
     if (js['succeed'] == False):
         return "{}"

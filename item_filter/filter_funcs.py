@@ -55,12 +55,12 @@ def get_marge(item: IdealoShopItem):
     amz = item.get_amazon_item()
     if amz is None:
         return -1
-    # avgr30 = amz.get_avgr30(item.amazon_offer.price)
-    avgr30 = item.amazon_offer.price
-    print(avgr30)
-    print(item.get_amazon_item().ean)
+    avgr30 = amz.get_avgr30(item.amazon_offer.price)
+    print(amz.ean, ": ", avgr30)
+    if avgr30 is None:
+        return -5
+    #avgr30 = item.amazon_offer.price
     costs = amz.get_cost(item.best_offer.price)
-    # return item.amazon_product.get_avgr30(item.amazon_offer.price) - amz.get_cost(item.best_offer.price)
     return avgr30 - costs
 
 def get_marge_2(item: IdealoShopItem):
@@ -68,7 +68,6 @@ def get_marge_2(item: IdealoShopItem):
     if amz is None:
         return -1
     costs = amz.get_cost(item.best_offer.price, item.amazon_offer.price)
-    print("C", costs)
     return item.amazon_offer.price - costs
 
 
