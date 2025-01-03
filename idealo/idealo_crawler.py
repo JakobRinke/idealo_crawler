@@ -63,7 +63,7 @@ class IdealoCategoryCrawler ():
                 data = json.loads(self.driver.find_element(By.TAG_NAME, "pre").text, strict=False)
             jsonItems = data["items"]
             for item in jsonItems:
-                self.itemcache.append(IdealoItemHead(item["title"], item["offerInfo"]["formattedPrice"], item["href"]))
+                self.itemcache.append(IdealoItemHead(item["title"], item["offerInfo"]["formattedPrice"], item["href"], item["id"]))
             self.page_index += 1
         except:
             self.end()

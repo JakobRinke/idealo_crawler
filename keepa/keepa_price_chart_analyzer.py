@@ -1,5 +1,5 @@
 try:
-    from item_filter import amz_headers as amz_headers
+    from keepa import amz_headers as amz_headers
 except:
     import amz_headers
 from io import BytesIO
@@ -82,5 +82,5 @@ def get_30_day_avg(asin:str, current_price:float):
 
 
 if __name__ == "__main__":
-    print(get_30_day_avg("B0CNY4NSM2", 128.83))
-    print(get_30_day_avg("B07DPB7SKF", 54.95))
+    print(get_30_day_avg("B0CV52JHNR", 2270))
+    print(get_30_day_avg("B09T1P2B7J", 203.75))

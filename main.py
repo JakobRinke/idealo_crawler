@@ -52,14 +52,13 @@ def add_to_writer(item:IdealoShopItem):
 
 if __name__ == "__main__":
     category_ids = [
-        30311,
-        3626,
-        4033,
-        3686,
-        3326,
         3932,
-        2400,
-        7032
+        3326,
+        30468,
+        7173,
+        3232,
+        10192,
+        3233
     ]
     t = time.time()
     items = idealo_crawler.multi_threaded_category_search(category_ids, onItem)

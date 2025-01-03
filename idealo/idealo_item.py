@@ -18,11 +18,11 @@ ITEM_FIND_URL = "https://www.idealo.de/offerpage/offerlist/product/{0}/start/{1}
 
 class IdealoItemHead:
 
-    def __init__(self, name, diplayPrice, link):
+    def __init__(self, name, diplayPrice, link, id):
         self.name = name
         self.displayPrice = convert_int(diplayPrice)
         self.link = link
-        self.id = link.split("/")[-1].split("_")[0]
+        self.id = id
 
     def __str__(self):
         return f"{self.name} - {self.displayPrice}  -> {self.link}"
